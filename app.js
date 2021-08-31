@@ -99,7 +99,9 @@ function readBarcodeFromImage(file, resultElement) {
   BarcodeScanner.init()
   BarcodeScanner.ImageCallback = function(result) {
     console.log('result', result);
-    resultElement.innerHTML = result[0].Value
+    if (result.length > 0) {
+      resultElement.innerHTML = result[0].Value;
+    }
   }
   BarcodeScanner.DecodeImage(file)
 }
