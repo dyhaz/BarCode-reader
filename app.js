@@ -94,3 +94,12 @@ function stopBarcodeReader() {
 
   window.currentStream.stop()
 }
+
+function readBarcodeFromImage(file, resultElement) {
+  BarcodeScanner.init()
+  BarcodeScanner.ImageCallback = function(result) {
+    console.log('result', result);
+    resultElement.innerHTML = result[0].Value
+  }
+  BarcodeScanner.DecodeImage(file)
+}

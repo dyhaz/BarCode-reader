@@ -11,13 +11,28 @@
 <body>
   <p id="code">code will appear here</p>
 
+  <input type="file" id="upload" name="upload" accept="image/png, image/jpeg">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="exif.js"></script>
   <script src="BarcodeScanner.js"></script>
   <script src="app.js"></script>
+<!--  <script>-->
+<!--    var resultElement = document.getElementById('code')-->
+<!--    setupLiveReader(resultElement)-->
+<!--  </script>-->
   <script>
-    var resultElement = document.getElementById('code')
-    setupLiveReader(resultElement)
+    const inputElement = document.getElementById("upload");
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+      const file = this.files[0];
+      var resultElement = document.getElementById('code');
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        readBarcodeFromImage(reader.result, resultElement)
+      };
+      reader.onerror = error => console.log(error);
+    }
   </script>
 </body>
 
